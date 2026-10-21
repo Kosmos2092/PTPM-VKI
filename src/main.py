@@ -2,9 +2,18 @@ import logging
 import sys
 from pathlib import Path
 
-from triangle import get_triangle
+from src.controller import Controller
+from src.database import TriangleDatabase
+from src.notifier import EmailNotifier
+from src.triangle import TriangleCalculator
+from src.user_input import ConsoleInput
 
-LOG_DIR = Path(__file__).parent / "logs"
+SRC_DIR = Path(__file__).parent
+LOG_DIR = SRC_DIR / "logs"
+DB_PATH = SRC_DIR / "triangles.db"
+EMAIL = "teacher@example.com"
+
+log = logging.getLogger(__name__)
 
 
 def setup_logging():
@@ -22,11 +31,12 @@ def setup_logging():
 
 def main():
     setup_logging()
-    logging.info("Приложение запущено")
-    a, b, c = (input(f"Сторона {name}: ") for name in "ABC")
-    kind, points = get_triangle(a, b, c)
-    print(f"Вид: {kind or 'некорректные данные'}, вершины: {points}")
-    logging.info("Приложение завершено")
+    log.info("Приложение запущено")
+    database = TriangleDatabase(DB_PATH)
+    controller = Controller(TriangleCalculator(), database, ConsoleInput(), EmailNotifier(EMAIL))
+    print(f"Результат: {controller.run()}")
+    database.close()
+    log.info("Приложение завершено")
 
 
 if __name__ == "__main__":
