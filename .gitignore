@@ -17,3 +17,6 @@ Thumbs.db
 .venv/
 .idea/
 logs/
+
+# База данных SQLite, которую создаёт программа
+*.db
