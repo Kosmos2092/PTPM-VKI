@@ -39,5 +39,5 @@ def main():
     log.info("Приложение завершено")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover — только при прямом запуске
     main()
