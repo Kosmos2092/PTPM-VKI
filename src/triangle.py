@@ -41,3 +41,10 @@ def vertices(a: float, b: float, c: float) -> list[tuple[int, int]]:
     x = (1 + b * b - a * a) / 2
     y = math.sqrt(max(b * b - x * x, 0))
     return [(0, 0), (MAX_COORD, 0), (round(x * MAX_COORD), round(y * MAX_COORD))]
+
+
+class TriangleCalculator:
+    """Класс вычислений: метод из ЛР1."""
+
+    def calculate(self, a: str, b: str, c: str) -> tuple[str, list[tuple[int, int]]]:
+        return get_triangle(a, b, c)
