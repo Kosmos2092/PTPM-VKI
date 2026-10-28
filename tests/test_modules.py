@@ -41,6 +41,10 @@ class TestUserInput(unittest.TestCase):
         self.assertEqual(ConsoleInput().get_sides(), ("3", "4", "5"))
         self.assertEqual(fake_input.call_count, 3)
 
+    @patch("builtins.input", side_effect=[" 3 ", "4  ", "  5"])
+    def test_console_input_strips_spaces_around_sides(self, _input):
+        self.assertEqual(ConsoleInput().get_sides(), ("3", "4", "5"))
+
     def test_interfaces_cannot_be_instantiated(self):
         for interface in (UserInput, Notifier):
             with self.subTest(interface=interface.__name__), self.assertRaises(TypeError):

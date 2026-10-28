@@ -11,4 +11,4 @@ class UserInput(ABC):
 
 class ConsoleInput(UserInput):
     def get_sides(self) -> tuple[str, str, str]:
-        return tuple(input(f"Сторона {name}: ") for name in "ABC")
+        return tuple(input(f"Сторона {name}: ").strip() for name in "ABC")  # strip: '3 ' и '3' — одна запись в БД
